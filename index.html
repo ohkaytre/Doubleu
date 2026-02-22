@@ -1,393 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Crown Strike: 405 Edition</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-    :root {
-        --gold: #ffcc00;
-        --royal-purple: #2a004a; /* DoubleU Atmospheric Theme */
-        --glass: rgba(255, 255, 255, 0.1);
-    }
-
-    body {
-        background: radial-gradient(circle at center, #1a1a1a, #000);
-        color: #fff;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        overflow: hidden;
-        transition: background 2s ease;
-    }
-
-    /* Atmospheric Mode Class */
-    body.atmospheric {
-        background: radial-gradient(circle at center, var(--royal-purple), #050010);
-    }
-
-    h1 {
-        font-size: clamp(24px, 5vw, 42px);
-        margin: 10px 0;
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        text-shadow: 0 0 20px var(--gold);
-    }
-
-    .status-bar {
-        display: flex;
-        gap: 30px;
-        margin-bottom: 20px;
-        font-weight: bold;
-        background: var(--glass);
-        padding: 10px 30px;
-        border-radius: 50px;
-        border: 1px solid rgba(255,255,255,0.2);
-    }
-
-    .slot-container {
-        position: relative;
-        width: 90%;
-        max-width: 800px;
-        padding: 25px;
-        background: rgba(20, 20, 20, 0.8);
-        border-radius: 24px;
-        border: 2px solid var(--gold);
-        box-shadow: 0 0 50px rgba(255, 204, 0, 0.2);
-        backdrop-filter: blur(10px);
-    }
-
-    .reels {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: repeat(3, 110px);
-        gap: 12px;
-        margin-bottom: 25px;
-    }
-
-    .reel {
-        background: linear-gradient(145deg, #111, #222);
-        border: 1px solid #444;
-        border-radius: 12px;
-        font-size: 50px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    .reel.spinning {
-        filter: blur(4px);
-        transform: scale(0.9);
-        opacity: 0.7;
-    }
-
-    .reel.landed {
-        animation: bounce 0.4s ease;
-    }
-
-    .reel.crown-hit {
-        border-color: var(--gold);
-        box-shadow: 0 0 15px var(--gold);
-        background: rgba(255, 204, 0, 0.1);
-    }
-
-    @keyframes bounce {
-        0% { transform: translateY(-10px); }
-        100% { transform: translateY(0); }
-    }
-
-    .controls {
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-        flex-wrap: wrap;
-    }
-
-    button {
-        padding: 15px 35px;
-        font-size: 18px;
-        background: linear-gradient(to bottom, #ffd700, #b8860b);
-        border: none;
-        border-radius: 12px;
-        color: #000;
-        cursor: pointer;
-        font-weight: 900;
-        transition: 0.2s;
-        box-shadow: 0 4px 0 #6d5100;
-    }
-
-    button:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 0 #6d5100;
-        filter: brightness(1.1);
-    }
-
-    button:active {
-        transform: translateY(2px);
-        box-shadow: 0 0 0 #6d5100;
-    }
-
-    button:disabled {
-        filter: grayscale(1);
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
-
-    #result-msg {
-        margin-top: 20px;
-        font-size: 24px;
-        height: 30px;
-        color: var(--gold);
-        text-shadow: 0 0 10px #000;
-    }
-
-    /* BONUS OVERLAY */
-    .bonus-overlay {
-        display: none;
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.85);
-        border-radius: 22px;
-        z-index: 10;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .bonus-cell {
-        width: 80px;
-        height: 80px;
-        background: #111;
-        border: 2px solid #333;
-        border-radius: 8px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.3s;
-    }
-
-    .bonus-cell.filled {
-        border-color: var(--gold);
-        box-shadow: 0 0 15px var(--gold);
-        background: radial-gradient(circle, #443300, #000);
-        animation: pulse 1s infinite alternate;
-    }
-
-    @keyframes pulse {
-        from { transform: scale(1); }
-        to { transform: scale(1.05); }
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crown Strike Casino - 405 Edition</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="logo">👑 Crown Strike Casino</div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Slots</a></li>
+                <li><a href="pages/blackjack.html">Blackjack</a></li>
+                <li><a href="pages/roulette.html">Roulette</a></li>
+                <li><a href="pages/settings.html">Settings</a></li>
+            </ul>
+            <div class="user-info">
+                <span id="username-display">Guest</span>
+                <button id="logout-btn" class="btn-secondary">Logout</button>
+            </div>
+        </div>
+    </nav>
 
-<h1>👑 Crown Strike 👑</h1>
+    <!-- Main Content -->
+    <main class="container">
+        <!-- Header Section -->
+        <header class="game-header">
+            <h1>Crown Strike Slots</h1>
+            <p class="subtitle">5x3 Grid | Win Big with Crown Strikes</p>
+        </header>
 
-<div class="status-bar">
-    <div id="balance-display">Credits: 1000</div>
-    <div id="bet-display">Bet: 50</div>
-</div>
+        <!-- Game Status Bar -->
+        <div class="status-bar" role="status" aria-live="polite">
+            <div class="status-item">
+                <label>Balance:</label>
+                <div id="balance-display" class="highlight">Credits: 1000</div>
+            </div>
+            <div class="status-item">
+                <label>Current Bet:</label>
+                <div id="bet-display" class="highlight">Bet: 50</div>
+            </div>
+            <div class="status-item">
+                <label>Win/Loss:</label>
+                <div id="winloss-display">+0</div>
+            </div>
+        </div>
 
-<div class="slot-container">
-    <div class="reels" id="reels-grid"></div>
+        <!-- Game Container -->
+        <div class="game-container">
+            <!-- Reels -->
+            <div class="slot-machine">
+                <div class="reels" id="reels-grid" role="main"></div>
+            </div>
 
-    <div class="controls">
-        <button onclick="changeBet(-50)">-</button>
-        <button id="spin-btn" onclick="playGame()">SPIN</button>
-        <button onclick="changeBet(50)">+</button>
+            <!-- Controls Panel -->
+            <div class="control-panel">
+                <div class="bet-controls">
+                    <label for="bet-input">Adjust Bet:</label>
+                    <div class="bet-buttons">
+                        <button id="bet-decrease-btn" class="btn-secondary" aria-label="Decrease bet">−</button>
+                        <input type="number" id="bet-input" min="50" max="500" value="50" aria-label="Bet amount">
+                        <button id="bet-increase-btn" class="btn-secondary" aria-label="Increase bet">+</button>
+                    </div>
+                </div>
+
+                <button id="spin-btn" class="btn-primary" aria-label="Spin the reels">
+                    SPIN
+                </button>
+
+                <button id="auto-spin-btn" class="btn-secondary" aria-label="Enable auto spin">
+                    Auto Spin (10)
+                </button>
+            </div>
+
+            <!-- Result Message -->
+            <div id="result-msg" class="result-message" role="status" aria-live="assertive">
+                Ready to strike?
+            </div>
+
+            <!-- Bonus Overlay -->
+            <div class="bonus-overlay" id="bonus-screen" hidden>
+                <div class="bonus-container">
+                    <h2 id="bonus-title" class="bonus-title">HOLD & SPIN</h2>
+                    <div id="bonus-spins-left" class="bonus-spins">Spins: 3</div>
+                    <div class="bonus-reels" id="bonus-grid"></div>
+                    <div id="bonus-total" class="bonus-total"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Game Stats -->
+        <aside class="game-stats">
+            <h3>Game Statistics</h3>
+            <dl>
+                <dt>Total Spins:</dt>
+                <dd id="stat-spins">0</dd>
+                <dt>Total Won:</dt>
+                <dd id="stat-won">0</dd>
+                <dt>Total Lost:</dt>
+                <dd id="stat-lost">0</dd>
+                <dt>Win Rate:</dt>
+                <dd id="stat-rate">0%</dd>
+            </dl>
+            <button id="reset-stats-btn" class="btn-secondary">Reset Stats</button>
+        </aside>
+    </main>
+
+    <!-- Error Dialog -->
+    <div id="error-dialog" class="modal" hidden role="alertdialog" aria-labelledby="error-title">
+        <div class="modal-content">
+            <h2 id="error-title">Error</h2>
+            <p id="error-message"></p>
+            <button onclick="document.getElementById('error-dialog').hidden = true" class="btn-primary">Close</button>
+        </div>
     </div>
 
-    <div id="result-msg">Ready to strike?</div>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Crown Strike Casino. Gamble Responsibly.</p>
+        <p><a href="pages/responsible-gaming.html">Responsible Gaming</a></p>
+    </footer>
 
-    <div class="bonus-overlay" id="bonus-screen">
-        <h2 id="bonus-title" style="color:var(--gold)">HOLD & SPIN</h2>
-        <div id="bonus-spins-left" style="font-size: 24px; margin-bottom: 10px;">Spins: 3</div>
-        <div class="reels" id="bonus-grid"></div>
-    </div>
-</div>
-
-<script>
-/** CONFIG **/
-let balance = 1000;
-let currentBet = 50;
-const symbols = ["🍒", "🍋", "⭐", "🔔", "7️⃣", "🍉", "👑"];
-const weights = [30, 25, 20, 15, 7, 3, 12]; // Crown is weighted higher for testing
-const CROWN = "👑";
-
-/** AUDIO (Placeholders) **/
-const playSfx = (freq) => { /* Simple synth logic or audio objects could go here */ };
-
-/** INITIALIZE **/
-const mainGrid = document.getElementById("reels-grid");
-for (let i = 0; i < 15; i++) {
-    const div = document.createElement("div");
-    div.className = "reel";
-    div.id = `reel-${i}`;
-    div.textContent = "⭐";
-    mainGrid.appendChild(div);
-}
-
-const delay = (ms) => new Promise(res => setTimeout(res, ms));
-
-function updateUI() {
-    document.getElementById("balance-display").textContent = `Credits: ${balance}`;
-    document.getElementById("bet-display").textContent = `Bet: ${currentBet}`;
-}
-
-function changeBet(val) {
-    if (currentBet + val >= 50 && currentBet + val <= 500) {
-        currentBet += val;
-        updateUI();
-    }
-}
-
-/** MAIN GAME LOGIC **/
-async function playGame() {
-    if (balance < currentBet) return alert("Insufficient Credits");
-    
-    // Setup
-    balance -= currentBet;
-    updateUI();
-    document.getElementById("spin-btn").disabled = true;
-    document.getElementById("result-msg").textContent = "Spinning...";
-
-    // 1. Spinning Animation
-    const reels = document.querySelectorAll(".reel");
-    reels.forEach(r => {
-        r.classList.remove("crown-hit");
-        r.classList.add("spinning");
-    });
-
-    await delay(800);
-
-    // 2. Resolve Reels (Staggered Stop)
-    let results = [];
-    for (let i = 0; i < 15; i++) {
-        const symbol = getWeightedSymbol();
-        results.push(symbol);
-        
-        const el = document.getElementById(`reel-${i}`);
-        el.classList.remove("spinning");
-        el.textContent = symbol;
-        el.classList.add("landed");
-        
-        if (symbol === CROWN) el.classList.add("crown-hit");
-        
-        if (i % 5 === 0) await delay(100); // Stop column by column
-    }
-
-    // 3. Check for Bonus (6 or more Crowns)
-    const crownCount = results.filter(s => s === CROWN).length;
-    if (crownCount >= 6) {
-        await triggerBonus(results);
-    } else {
-        document.getElementById("result-msg").textContent = "Try again!";
-        document.getElementById("spin-btn").disabled = false;
-    }
-}
-
-function getWeightedSymbol() {
-    let total = weights.reduce((a, b) => a + b, 0);
-    let r = Math.random() * total;
-    for (let i = 0; i < symbols.length; i++) {
-        if (r < weights[i]) return symbols[i];
-        r -= weights[i];
-    }
-}
-
-/** BONUS FEATURE: HOLD & SPIN **/
-async function triggerBonus(initialReels) {
-    document.body.classList.add("atmospheric"); // DoubleU vibe
-    document.getElementById("result-msg").textContent = "!!! CROWN STRIKE !!!";
-    await delay(1000);
-
-    const overlay = document.getElementById("bonus-screen");
-    const bonusGrid = document.getElementById("bonus-grid");
-    overlay.style.display = "flex";
-    bonusGrid.innerHTML = "";
-
-    let bonusData = [];
-    let spinsLeft = 3;
-
-    // Initialize Bonus Grid
-    for (let i = 0; i < 15; i++) {
-        const cell = document.createElement("div");
-        cell.className = "bonus-cell";
-        
-        if (initialReels[i] === CROWN) {
-            const val = (Math.floor(Math.random() * 5) + 1) * currentBet;
-            bonusData[i] = val;
-            cell.innerHTML = `<span>${CROWN}</span><br>$${val}`;
-            cell.classList.add("filled");
-        } else {
-            bonusData[i] = null;
-        }
-        bonusGrid.appendChild(cell);
-    }
-
-    // Bonus Loop
-    while (spinsLeft > 0) {
-        document.getElementById("bonus-spins-left").textContent = `Spins: ${spinsLeft}`;
-        await delay(1000);
-
-        let newHits = 0;
-        const cells = document.querySelectorAll(".bonus-cell");
-
-        for (let i = 0; i < 15; i++) {
-            if (bonusData[i] === null) {
-                // Spinning effect on empty cells
-                cells[i].textContent = "🌀"; 
-                if (Math.random() < 0.12) { // Hit chance
-                    const val = (Math.floor(Math.random() * 10) + 1) * currentBet;
-                    bonusData[i] = val;
-                    cells[i].innerHTML = `<span>${CROWN}</span><br>$${val}`;
-                    cells[i].classList.add("filled");
-                    newHits++;
-                } else {
-                    cells[i].textContent = "";
-                }
-            }
-        }
-
-        if (newHits > 0) {
-            spinsLeft = 3;
-            document.getElementById("bonus-title").textContent = "RE-TRIGGERED!";
-        } else {
-            spinsLeft--;
-            document.getElementById("bonus-title").textContent = "HOLD & SPIN";
-        }
-
-        if (bonusData.every(v => v !== null)) {
-            document.getElementById("bonus-title").textContent = "GRAND JACKPOT!";
-            balance += (currentBet * 100);
-            break;
-        }
-    }
-
-    // Wrap Up
-    const totalWin = bonusData.filter(v => v !== null).reduce((a, b) => a + b, 0);
-    document.getElementById("bonus-title").textContent = "TOTAL WIN";
-    document.getElementById("bonus-spins-left").textContent = `$${totalWin}`;
-    
-    await delay(3000);
-    
-    balance += totalWin;
-    overlay.style.display = "none";
-    document.body.classList.remove("atmospheric");
-    document.getElementById("spin-btn").disabled = false;
-    updateUI();
-}
-
-updateUI();
-</script>
-
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/state-manager.js"></script>
+    <script src="js/ui-manager.js"></script>
+    <script src="js/game-logic.js"></script>
+    <script src="js/bonus-logic.js"></script>
+    <script src="js/event-handlers.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>
